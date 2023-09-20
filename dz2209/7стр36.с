@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int FillStr_GetLen(char *str)
+{
+    char  c;
+    int len = 0;
+    while((c = getchar()) != '\n') {
+        str[len] = c;
+        len++;
+        str = (char*) realloc(str, len);
+    }
+    str[len] = '\0';
+    return len;
+}
+
+int ReplaceSpaces(char *str, int len)
+{
+    char *str2 = NULL;
+    int j = 0;
+    for(int i = 0; i <= len; i++)
+    {
+        if(str[i] != ' ')
+        {
+            if(j == 0)
+            {
+                str2 = (char*) malloc(sizeof(char));
+            }
+            else 
+            {
+                str2 = (char*) realloc(str2, j);
+            }
+            str2[j] = str[i];
+            j++;
+            
+        }
+    }
+    
+    free(str);
+    str = NULL;
+    if(j == 0) 
+        str = (char*) malloc(sizeof(char));
+    else
+    {
+        str = (char*) malloc(sizeof(char)*(j));
+        for(int i = 0; i < j; i++)
+        {
+            str[i] = str2[i];
+        }
+        free(str2);
+        str2 = NULL;
+    }
+    
+    return j-1;
+}
+
+int CompareStrings(char *s1, char *s2)
+{
+    char c1, c2;
+    int i;
+    while((s1[i]  != '\0') && (s2[i]  != '\0'))
+    {
+        if(s1[i] != s2[i])
+            return 0;
+        i++;
+    }
+    if((s1[i] == '\0') && (s2[i]  == '\0'))
+        return 1;
+    return 0;
+    
+}
+
+int main() 
+{
+    char *s1 = NULL, *s2 = NULL;
+    int result;
+    s1 = (char*) malloc(sizeof(char));
+    s2 = (char*) malloc(sizeof(char));
+    int len1, len2;
+    len1 = FillStr_GetLen(s1);
+    len2 = FillStr_GetLen(s2);
+    len1 = ReplaceSpaces(s1, len1);
+    len2 = ReplaceSpaces(s2, len2);
+    
+    result = CompareStrings(s1, s2);
+    if(result)
+        printf("Equal");
+    else printf("Not equal");
+    
+    //printf("%s (%d symbols)\n", s1, len1);
+    free(s1);
+    free(s2);
+    return 0;
+}
