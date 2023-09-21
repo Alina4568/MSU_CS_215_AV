@@ -191,6 +191,73 @@ void HH() /* удалить из каждой группы подряд идущ
     
 }
 
+int input(char mass[])
+{
+    char c;
+    int i = 0;
+    c = getchar();
+    while(c != '.')
+    {
+        mass[i] = c;
+        i++;
+        c = getchar();
+    }
+    
+    return i;
+}
+
+void II() //удалить все комбинации символов the
+{
+    char mass[100];
+    int len, i;
+    len = input(mass);
+    
+    for(i = 0; i < len; i++)
+    {
+        if((i < len - 2) && (mass[i] == 't') && (mass[i+1] == 'h') && (mass[i+2] == 'e')) 
+            i += 2;
+        else 
+            printf("%c", mass[i]);
+    }
+}
+
+void KK() //заменить все комбинации символов child комбинациями символов children;
+{
+    char mass[100];
+    int len, i;
+    len = input(mass);
+    
+   for(i = 0; i < len; i++)
+   {
+         if((i < len - 4) && (mass[i] == 'c') && (mass[i+1] == 'h') && (mass[i+2] == 'i') && (mass[i+3] == 'l') && (mass[i+4] == 'd')) 
+        {
+            i += 4;
+            printf("children");
+        }
+        else 
+            printf("%c", mass[i]);
+   }
+}
+
+void LL() /* удалить группы символов, расположенные между фигурными скобками { и }. Скобки тоже должны быть удалены. Предполагается, что скобки сбалансированы, и внутри каждой пары скобок других фигурных скобок нет. */
+{
+    char mass[100];
+    int len, i, flag = 0;;
+    len = input(mass);
+    
+   for(i = 0; i < len; i++)
+   {
+        if(mass[i] == '{')
+            flag = 1;
+        
+        if(flag == 0)
+            printf("%c", mass[i]);
+            
+        if(mass[i] == '}')
+            flag = 0;
+   }
+}
+
 int main()
 {
     //AA();
@@ -200,7 +267,12 @@ int main()
 	//EE();
 	//FF();
 	//GG();
-    //HH();
+        //HH();
+	//II();
+	//KK();
+	//LL();
+	
+	printf("\n");
     
     return 0;
 }
