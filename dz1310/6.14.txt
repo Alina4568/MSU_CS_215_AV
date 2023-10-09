@@ -1,0 +1,47 @@
+6.14
+  
+  a) struct point 
+	{ 
+		int x; int y;
+	};
+	
+	struct point create_point ( int a, int b) 
+	{ struct point p; 
+		p.x = a; p.y = b; return p; 
+	}
+	
+  b) struct point 
+	{ 
+		int x; int y;
+		char color[15];
+	};
+	
+	struct point create_point ( int a, int b, chr c[]) 
+	{ struct point p; 
+		p.x = a; p.y = b; 
+		strcpu(p.color, c); // #include <string.h>  
+		return p; 
+	}
+	
+  c) struct complex_number
+	{ 
+		double complex x; // #include <complex.h>  
+	};
+	
+	struct point create_complex_number ( double complex a) 
+	{ struct point p; 
+		p.x = a;
+		return p;		
+	}
+
+  d) struct rational_number
+    {
+        unsigned int numerator, unsigned int denominator;
+    };
+	
+	struct point create_complex_number (unsigned int a, unsigned int b) 
+	{ struct point p; 
+		p.numerator = a;
+		p.denominator = bss;
+		return p;		
+	}

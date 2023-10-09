@@ -1,0 +1,12 @@
+ 6.11 
+ a) void assign_to_point ( struct point p, int a, int b) 
+   { p.x = a; p.y = b; }                                      Нельзя
+ 
+ b) void assign_to_point ( struct point *p, int a, int b) 
+   { (*p).x = a; (*p).y = b; }                                Можно
+ 
+ c) void assign_to_point ( struct point *p, int a, int b) 
+   { *p.x = a; *p.y = b; }                                    Нельзя
+ 
+ d) void assign_to_point ( struct point *p, int a, int b) 
+   { p -> x = a; p -> y = b; }                                Можно
