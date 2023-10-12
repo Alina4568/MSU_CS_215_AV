@@ -11,7 +11,7 @@ struct Node
 };
 
 
-void push(Node ** plist, Data * d) //добавление элемента в конец списка
+void push(Node ** plist, Data * d) //добавление элемента в начало списка
 {
     Node * p = malloc(sizeof(Node));
 	p->data = d;
@@ -19,12 +19,15 @@ void push(Node ** plist, Data * d) //добавление элемента в к
 	*plist = p;
 }
 
-void pop(Node ** plist) // удаление последнегостека элемента стека
+Data pop(Node ** plist) // удаление последнегостека элемента стека
 {
     Node * p = *plist;
+    Data res = *(p->data);   
     *plist = p->next;
     free(p);
+    return res;
 }
+
 
 void print(Node * list) //вывод списка
 {
@@ -54,37 +57,24 @@ void delete_first_occurrence(Node ** plist, Data nn) // b) удаляет из �
     Node * p = *plist;
     Node * p2 = p;
     int flag = 1;
-    if(p != NULL)
+    while(flag && (p != NULL))
     {
-        while(flag && (p->next != NULL))
+        if(*(p->data) == nn)
         {
-            if(*(p->data) == nn)
-            {
-                flag = 0;
-                if(p == *plist) //если первый элемент
-                {
-                    *plist = p->next;
-                }
-                else
-                {
-                    p2->next = p->next;
-                }
-            }
-            p2 = p;
-            p = p->next;
-        }
-        
-        if(flag && (*(p->data) == nn)) // если последний 
-        {
+            flag = 0;
             if(p == *plist) //если первый элемент
             {
-                *plist = NULL;
+                *plist = p->next;
+                free(p);
             }
             else
             {
-                p2->next = NULL;
+                p2->next = p->next;
+                free(p);
             }
         }
+        p2 = p;
+        p = p->next;
     }
     
 }
@@ -93,37 +83,22 @@ void delete_all_occurrences(Node ** plist, Data nn) //c) удаляет из с�
 {
     Node * p = *plist;
     Node * p2 = p;
-    if(p != NULL)
+    while(p != NULL)
     {
-        while(p->next != NULL)
-        {
-            if(*(p->data) == nn)
-            {
-                if(p == *plist) //если первый элемент
-                {
-                    *plist = p->next;
-                }
-                else
-                {
-                    p2->next = p->next;
-                }
-            }
-            else
-                p2 = p;
-            p = p->next;
-        }
-        
-        if(*(p->data) == nn) // если последний 
+        if(*(p->data) == nn)
         {
             if(p == *plist) //если первый элемент
             {
-                *plist = NULL;
+                *plist = p->next;
             }
             else
             {
-                p2->next = NULL;
+                p2->next = p->next;
             }
         }
+        else
+            p2 = p;
+        p = p->next;
     }
 }
 
@@ -141,29 +116,27 @@ void add_link(Node * list, Data nn) //d) после каждого звена с
 {
     Node * p = list;
     
-    if(p != NULL)
+    while(p != NULL)
     {
-        while(p->next != NULL)
-        {
-            if(*(p->data) == nn)
-            {
-                add(p, nn);
-                p = p->next;
-            }
-            p = p->next;
-        }
-        
-        if((*(p->data) == nn) && (p->next == NULL)) // последнее звено
+        if(*(p->data) == nn)
         {
             add(p, nn);
+            p = p->next;
         }
+        p = p->next;
     }
+        
+}
+
+int is_empty(Node * list) //проверка на пустоту списка
+{
+    return list == NULL;
 }
 
 
 int main()
 {
-    Data test[] = {15, 3, 1, 18, 15, 15};
+    Data test[] = {15, 3, 1, 14, 15, 15};
     Node * list = NULL;
 
     for(size_t i = 0; i < sizeof(test) / sizeof(test[0]); i++)
@@ -183,9 +156,10 @@ int main()
     
     print(list);
     
-    while(list != NULL){
-        pop(&list);
+    while(!is_empty(list)){
+        Data d = pop(&list);
     }
+    printf("Empty: %s\n", is_empty(list) ? "YES": "NO");
     
     return 0;
 }

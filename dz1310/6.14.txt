@@ -13,13 +13,13 @@
   b) struct point 
 	{ 
 		int x; int y;
-		char color[15];
+		char * color;
 	};
 	
 	struct point create_point ( int a, int b, chr c[]) 
 	{ struct point p; 
 		p.x = a; p.y = b; 
-		strcpu(p.color, c); // #include <string.h>  
+		strcpu(*(p.color), c); // #include <string.h>  
 		return p; 
 	}
 	
