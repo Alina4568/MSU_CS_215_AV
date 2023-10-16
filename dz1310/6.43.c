@@ -10,14 +10,14 @@ struct Node
     Node * next;
 };
 
-void print(Node * list) //вывод списка
+void print(Node * list) //вывод стека
 {
     for(Node * p = list; p != NULL; p = p->next){
         printf("%d ", p->data);}
     printf("\n");
 }
 
-void push(Node ** plist, Data d) //добавление элемента в конец списка
+void push(Node ** plist, Data d) //добавление элемента в начало стека
 {
     Node * p = malloc(sizeof(Node));
 	p->data = d;
@@ -25,7 +25,7 @@ void push(Node ** plist, Data d) //добавление элемента в ко
 	*plist = p;
 }
 
-Data pop(Node ** plist) // удаление последнегостека элемента стека
+Data pop(Node ** plist) // удаление первого элемента стека
 {
     Node * p = *plist;
     Data res = p->data;   
@@ -34,7 +34,7 @@ Data pop(Node ** plist) // удаление последнегостека эл�
     return res;
 }
 
-int is_empty(Node * list) //проверка на пустоту списка
+int is_empty(Node * list) //проверка на пустоту стека
 {
     return list == NULL;
 }
